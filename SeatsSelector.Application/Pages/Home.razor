@@ -1,0 +1,59 @@
+﻿@page "/"
+@inherits HomeBase
+@attribute [Authorize]
+
+@using SeatsSelector.Shared.Models.Seats
+
+@if (_isInitialized)
+{
+    <section class="p-5">
+
+        <div class="container">
+            <div class="row justify-content-sm-center">
+                <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+
+                    <!-- Legend -->
+                    <ul class="showcase">
+                        <li>
+                            <div class="seat"></div>
+                            <small>N/A</small>
+                        </li>
+                        <li>
+                            <div class="seat selected"></div>
+                            <small>Selected</small>
+                        </li>
+                        <li>
+                            <div class="seat occupied"></div>
+                            <small>Occupied</small>
+                        </li>
+                    </ul>
+
+                    <!-- Room map -->
+                    <div class="container">
+
+                        <!-- Screen -->
+                        <div class="screen"></div>
+
+                        <!-- Seats -->
+                        @for (int row = 0; row < _room.RowCount; row++)
+                        {
+                            <div class="row">
+                                @for (int col = 0; col < _room.ColCount; col++)
+                                {
+                                    Seat seat = _room.GetSeatAt(row, col);
+                                    bool isHidden = (seat == null);
+                                    bool isOccupied = (!isHidden && seat.IsOccupied);
+
+                                    <div class="seat @(isHidden ? "hidden" : "") @(isOccupied ? "occupied" : "")" @onclick="() => Seat_OnClick(seat)"></div>
+                                }
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+}

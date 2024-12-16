@@ -1,0 +1,74 @@
+﻿@page "/login"
+
+@inherits LoginPageBase
+@layout EmptyLayout
+
+
+<section class="p-5" style="color: var(--bs-dark)">
+
+	<div class="container">
+		<div class="row justify-content-sm-center">
+			<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+
+				<!-- Logo -->
+				<!--<div class="text-center my-5">
+					<img src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" alt="logo" width="100">
+				</div>-->
+				
+				<!-- Card -->
+				<div class="card shadow-lg">
+					<div class="card-body p-5">
+
+						<!-- Title -->
+						<h1 class="card-title text-center fs-4 fw-bold mb-4">Login</h1>
+
+						<!-- Form -->
+						<EditForm Model="Data" OnSubmit="LoginForm_OnSubmit" autocomplete="off">
+
+							<DataAnnotationsValidator />
+
+							<!-- Login error -->
+							@if (!string.IsNullOrWhiteSpace(Error))
+							{
+								<div class="alert alert-danger" role="alert">
+									@Error
+								</div>
+							}
+
+							<!-- Form item: Username -->
+							<div class="mb-3">
+								<label for="username" class="mb-2 text-muted">Username</label>
+								<InputText id="username" name="username" class="form-control" @bind-Value="Data.Username" autofocus />
+								<ValidationMessage For="() => Data.Username" />
+							</div>
+
+							<!-- Form item: Password -->
+							<div class="mb-3">
+								<label for="pwd" class="mb-2 text-muted">Password</label>
+								<InputText id="pwd" name="pwd" type="password" class="form-control" @bind-Value="Data.Password" />
+								<ValidationMessage For="() => Data.Password" />
+							</div>
+
+							<!-- Form item: Remember me -->
+							<!-- <div class="form-check mb-3">
+								<InputCheckbox id="remember" name="remember" type="checkbox" class="form-check-input" @bind-value="Data.IsPersistant" />
+								<label for="remember" class="form-check-label">Remember Me</label>
+							</div> -->
+
+							<!-- Submit button -->
+							<button type="submit" class="btn btn-primary w-100">
+								Login
+							</button>
+
+						</EditForm>
+					</div>
+				</div>
+				
+				<!-- Copyright -->
+				<!--<div class="text-center mt-5 text-muted">
+					Copyright &copy; 2017-2021 &mdash; Your Company
+				</div> -->
+			</div>
+		</div>
+	</div>
+</section>
