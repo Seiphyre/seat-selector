@@ -71,7 +71,7 @@
 
                     @foreach (var user in _users.OrderBy(user => user.DisplayName))
                     {
-                        <div class="alert alert-light">
+                        <div class="alert @(user.Seat == null ? "alert-light" : "alert-success")">
                             <div class="row justify-content-sm-center">
                                 <div class="col-6">
                                     @user.DisplayName
