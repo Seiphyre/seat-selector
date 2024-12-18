@@ -9,5 +9,6 @@
         public int Col { get; set; }
         public int Row { get; set; }
         public bool IsOccupied { get; set; }
+        public string Name { get; set; }
     }
 }

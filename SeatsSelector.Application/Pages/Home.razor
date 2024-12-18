@@ -16,11 +16,11 @@
                     <ul class="showcase">
                         <li>
                             <div class="seat"></div>
-                            <small>N/A</small>
+                            <small>Available</small>
                         </li>
                         <li>
                             <div class="seat selected"></div>
-                            <small>Selected</small>
+                            <small>Me</small>
                         </li>
                         <li>
                             <div class="seat occupied"></div>
@@ -42,9 +42,10 @@
                                 {
                                     Seat seat = _room.GetSeatAt(row, col);
                                     bool isHidden = (seat == null);
-                                    bool isOccupied = (!isHidden && seat.IsOccupied);
+                                    bool isSelected = (!isHidden && seat.UserId == _me.Id);
+                                    bool isOccupied = (!isHidden && !isSelected && seat.IsOccupied);
 
-                                    <div class="seat @(isHidden ? "hidden" : "") @(isOccupied ? "occupied" : "")" @onclick="() => Seat_OnClick(seat)"></div>
+                                    <div class="seat @(isHidden ? "hidden" : "") @(isOccupied ? "occupied" : "") @(isSelected ? "selected" : "")" @onclick="() => Seat_OnClick(seat)"></div>
                                 }
                             </div>
                         }
@@ -55,5 +56,59 @@
             </div>
         </div>
 
+        <div class="container mt-5">
+            <div class="row justify-content-sm-center">
+                <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+
+                        <div class="row justify-content-sm-center mb-3">
+                            <div class="col">
+                            </div>
+
+                            <div class="col-auto">
+                                <button class="btn btn-primary" @onclick="DownloadCsv">Download</button>
+                            </div>
+                        </div>
+
+                    @foreach (var user in _users.OrderBy(user => user.DisplayName))
+                    {
+                        <div class="alert alert-light">
+                            <div class="row justify-content-sm-center">
+                                <div class="col-6">
+                                    @user.DisplayName
+                                </div>
+
+                                <div class="col-6">
+                                    @(user.Seat?.Name ?? "--")
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
     </section>
+
+    <div class="modal @(ErrorModalIsVisible ? "fade show d-block" : "")" style="color: black;" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Error</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @onclick="ErrorModal_OnClose"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p>@ErrorMessage</p>
+                </div>
+
+                <div class="modal-footer">
+                    @* <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> *@
+                    <button type="button" class="btn btn-primary" @onclick="ErrorModal_OnClose">Ok</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 }

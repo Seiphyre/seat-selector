@@ -65,7 +65,11 @@ namespace SeatsSelector.Application.Pages
                 if (ex.StatusCode == System.Net.HttpStatusCode.BadRequest)
                     Error = $"Incorrect password for {Data.Username}";
                 else
-                    Error = $"Failed to reach the server. Please try again.";
+                {
+                    Error = $"Network error. Please try again.";
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.Message);
+                }
 
                 StateHasChanged();
             }

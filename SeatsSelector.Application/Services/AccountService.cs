@@ -11,7 +11,7 @@ namespace SeatsSelector.Application.Services
         Task Login(string username, string password);
         Task Logout();
 
-        User CurrentUser { get; }
+        Task<User> GetCurrentUser();
     }
 
     public class AccountService : IAccountService
@@ -20,7 +20,12 @@ namespace SeatsSelector.Application.Services
         private readonly ILocalStorageService _localStorage;
         private readonly IWebAPI _webAPI;
 
-        public User CurrentUser { get; private set; }
+        public async Task<User> GetCurrentUser()
+        {
+            string token = await _localStorage.GetItemAsync<string>("token");
+
+            return User.FromToken(token);
+        }
 
 
 

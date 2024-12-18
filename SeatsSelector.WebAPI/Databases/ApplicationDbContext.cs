@@ -24,7 +24,7 @@ namespace SeatsSelector.WebAPI.Database
 
             modelBuilder.Entity<SeatEntity>().HasKey(e => e.Id);
             modelBuilder.Entity<SeatEntity>().HasOne(e => e.Room).WithMany(e => e.Seats).HasForeignKey(e => e.RoomId);
-            modelBuilder.Entity<SeatEntity>().HasOne(e => e.User).WithOne().HasForeignKey<SeatEntity>(e => e.UserId).IsRequired(false);
+            modelBuilder.Entity<SeatEntity>().HasOne(e => e.User).WithOne(e => e.Seat).HasForeignKey<SeatEntity>(e => e.UserId).IsRequired(false);
 
             modelBuilder.Entity<UserEntity>().HasKey(e => e.Id);
         }

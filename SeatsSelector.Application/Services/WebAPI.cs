@@ -19,7 +19,8 @@ namespace SeatsSelector.Application.Services
         Task<string> Authenticate(string username, string password);
 
         Task<Room> GetRoom(int roomId);
-        Task<Seat> AssignUserToSeat(int seatId, int userId);
+        Task<List<User>> GetUsers();
+        Task AssignUserToSeat(int seatId, int userId);
     }
 
     public class WebAPI : IWebAPI
@@ -59,7 +60,7 @@ namespace SeatsSelector.Application.Services
 
         public async Task<Room> GetRoom(int roomId)
         {
-            using HttpResponseMessage response = await _httpClient.GetAsync($"Rooms/{roomId}");
+            using HttpResponseMessage response = await _httpClient.GetAsync($"rooms/{roomId}");
 
             response.EnsureSuccessStatusCode();
 
@@ -74,12 +75,37 @@ namespace SeatsSelector.Application.Services
 
         // -------------------------------------------------------------
 
-        public async Task<Seat> AssignUserToSeat(int seatId, int userId)
+        public async Task AssignUserToSeat(int seatId, int userId)
         {
-            await Task.CompletedTask;
+            using StringContent jsonContent = new(
+                JsonSerializer.Serialize(new AssignUser()
+                {
+                    SeatId = seatId,
+                    UserId = userId
+                }),
+                Encoding.UTF8,
+                "application/json");
 
-            return null;
+            using HttpResponseMessage response = await _httpClient.PostAsync($"seats/assign-user", jsonContent);
+
+            response.EnsureSuccessStatusCode();
+
+            var token = await response.Content.ReadAsStringAsync();
         }
+
+        public async Task<List<User>> GetUsers()
+        {
+            using HttpResponseMessage response = await _httpClient.GetAsync($"users");
+
+            response.EnsureSuccessStatusCode();
+
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+
+            var users = JsonSerializer.Deserialize<List<User>>(jsonResponse, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+
+            return users;
+        }
+
 
         //public async Task<Seat> GetSeat(int seatId)
         //{

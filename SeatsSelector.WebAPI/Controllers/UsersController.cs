@@ -38,7 +38,7 @@ namespace SeatsSelector.WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<List<User>>> GetAll()
         {
-            var users = await _dbContext.Users.ToListAsync();
+            var users = await _dbContext.Users.Include(u => u.Seat).ToListAsync();
 
             return users.Select(userEntity => _mapper.Map<User>(userEntity)).ToList();
         }

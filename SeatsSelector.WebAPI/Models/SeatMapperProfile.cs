@@ -15,7 +15,9 @@ namespace SeatsSelector.Shared.Models
 
             CreateMap<CreateSeat, SeatEntity>();
 
-            CreateMap<SeatEntity, Seat>();
+            CreateMap<SeatEntity, Seat>()
+                .ForMember(dest => dest.IsOccupied, opt => opt.MapFrom(src => src.UserId != null))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src =>  $"{(char)('A' + src.Row)}-{src.Col + 1}"));
         }
     }
 }

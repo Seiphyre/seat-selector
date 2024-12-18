@@ -5,5 +5,7 @@ namespace SeatsSelector.WebAPI.Models
     public class UserEntity : IdentityUser<int>
     {
         public string DisplayName { get; set; }
+
+        public SeatEntity Seat { get; set; }
     }
 }

@@ -157,7 +157,7 @@ namespace SeatsSelector.WebAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Rooms");
+                    b.ToTable("Rooms", (string)null);
                 });
 
             modelBuilder.Entity("SeatsSelector.WebAPI.Models.SeatEntity", b =>
@@ -185,7 +185,7 @@ namespace SeatsSelector.WebAPI.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Seats");
+                    b.ToTable("Seats", (string)null);
                 });
 
             modelBuilder.Entity("SeatsSelector.WebAPI.Models.UserEntity", b =>
