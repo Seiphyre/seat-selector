@@ -8,36 +8,39 @@
 {
     <section class="py-3">
 
+        <!-- Top of room map -->
+        <div class="container">
+            <div class="row justify-content-center">
+
+                <!-- Legend -->
+                <div class="col align-content-center">
+                    <ul class="showcase mb-0">
+                        <li>
+                            <div class="seat"></div>
+                            <small>Available</small>
+                        </li>
+                        <li>
+                            <div class="seat selected"></div>
+                            <small>Me</small>
+                        </li>
+                        <li>
+                            <div class="seat occupied"></div>
+                            <small>Occupied</small>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Refresh button -->
+                <div class="col-auto">
+                    <div class="btn btn-secondary" @onclick="Refresh">Refresh</div>
+                </div>
+
+            </div>
+        </div>
+
         <div class="container" style="overflow-x: auto;">
             <div class="row justify-content-center" style="min-width: 540px;">
                 <div class="col">
-
-                    <!-- Top of room map -->
-                    <div class="row justify-content-center">
-                        <div class="col align-content-center">
-
-                            <!-- Legend -->
-                            <ul class="showcase mb-0">
-                                <li>
-                                    <div class="seat"></div>
-                                    <small>Available</small>
-                                </li>
-                                <li>
-                                    <div class="seat selected"></div>
-                                    <small>Me</small>
-                                </li>
-                                <li>
-                                    <div class="seat occupied"></div>
-                                    <small>Occupied</small>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Refresh button -->
-                        <div class="col-auto">
-                            <div class="btn btn-secondary" @onclick="Refresh">Refresh</div>
-                        </div>
-                    </div>
 
                     <!-- Room map -->
                     <div class="container">
