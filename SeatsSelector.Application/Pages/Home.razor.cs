@@ -41,7 +41,7 @@ namespace SeatsSelector.Application.Pages
         {
             var csv = new StringBuilder();
 
-            csv.AppendLine("Name, Seat");
+            csv.AppendLine("학생 이름, 좌석");
 
             foreach (var user in _users)
             {
@@ -64,7 +64,7 @@ namespace SeatsSelector.Application.Pages
             var csvContent = GenerateCSV();  // Generate CSV content
 
             // Call JavaScript function to download CSV
-            await JS.InvokeVoidAsync("downloadFile", "student-seats.csv", csvContent);
+            await JS.InvokeVoidAsync("downloadFile", "학생-좌석-목록.csv", csvContent);
         }
 
         protected async void Seat_OnClick(Seat seat)
@@ -83,11 +83,11 @@ namespace SeatsSelector.Application.Pages
 
                 if (exception.StatusCode == System.Net.HttpStatusCode.BadRequest)
                 {
-                    ErrorMessage = "This seat is already taken";
+                    ErrorMessage = "이 좌석은 이미 예약되었습니다. 다른 좌석을 선택해 주세요.";
                 }
                 else
                 {
-                    ErrorMessage = "Network error. Please try again.";
+                    ErrorMessage = "네트워크 오류가 발생했습니다 . 다시 시도해 주세요.";
                 }
 
                 ErrorModalIsVisible = true;

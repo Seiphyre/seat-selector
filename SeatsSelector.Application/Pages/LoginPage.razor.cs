@@ -63,10 +63,10 @@ namespace SeatsSelector.Application.Pages
             catch (HttpRequestException ex)
             {
                 if (ex.StatusCode == System.Net.HttpStatusCode.BadRequest)
-                    Error = $"Incorrect password for {Data.Username}";
+                    Error = $"잘못된 비밀번호 또는 ID";
                 else
                 {
-                    Error = $"Network error. Please try again.";
+                    Error = $"네트워크 오류가 발생했습니다. 다시 시도해 주세요.";
                     Console.WriteLine(ex.Message);
                     Console.WriteLine(ex.Message);
                 }
