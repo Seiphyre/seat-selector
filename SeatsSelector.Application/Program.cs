@@ -18,7 +18,7 @@ namespace SeatsSelector.Application
 
 			builder.Services.AddScoped(sp => new HttpClient
 			{
-				BaseAddress = new Uri(builder.HostEnvironment.IsDevelopment() ? "https://localhost:7234/" : "https://seat-selector-webapi.azurewebsites.net/")
+				BaseAddress = new Uri(/*builder.HostEnvironment.IsDevelopment() ? "https://localhost:7234/" : */"https://seat-selector-webapi.azurewebsites.net/")
 			});
 
 			// -- Custom services

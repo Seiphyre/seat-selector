@@ -6,11 +6,11 @@
 
 @if (_isInitialized)
 {
-    <section class="p-5">
+    <section class="py-3">
 
-        <div class="container">
-            <div class="row justify-content-sm-center">
-                <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+        <div class="container" style="overflow-x: auto;">
+            <div class="row justify-content-center" style="min-width: 540px;">
+                <div class="col">
 
                     <!-- Legend -->
                     <ul class="showcase">
@@ -37,7 +37,7 @@
                         <!-- Seats -->
                         @for (int row = 0; row < _room.RowCount; row++)
                         {
-                            <div class="row">
+                            <div class="row justify-content-center">
                                 @for (int col = 0; col < _room.ColCount; col++)
                                 {
                                     Seat seat = _room.GetSeatAt(row, col);
@@ -57,8 +57,8 @@
         </div>
 
         <div class="container mt-5">
-            <div class="row justify-content-sm-center">
-                <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+            <div class="row justify-content-center">
+                <div class="col">
 
                         <div class="row justify-content-sm-center mb-3">
                             <div class="col">
