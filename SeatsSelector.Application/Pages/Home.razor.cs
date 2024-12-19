@@ -51,6 +51,14 @@ namespace SeatsSelector.Application.Pages
             return csv.ToString();
         }
 
+        protected async Task Refresh()
+        {
+            _room = await WebAPI.GetRoom(1);
+            _users = await WebAPI.GetUsers();
+
+            StateHasChanged();
+        }
+
         protected async Task DownloadCsv()
         {
             var csvContent = GenerateCSV();  // Generate CSV content
@@ -67,9 +75,6 @@ namespace SeatsSelector.Application.Pages
             try
             {
                 await WebAPI.AssignUserToSeat(seat.Id, _me.Id);
-
-                _room = await WebAPI.GetRoom(1);
-                _users = await WebAPI.GetUsers();
             }
             catch (HttpRequestException exception)
             {
@@ -89,7 +94,7 @@ namespace SeatsSelector.Application.Pages
             }
             finally
             {
-                StateHasChanged();
+                await Refresh();
             }
         }
 
